@@ -1,4 +1,4 @@
-using Flexybook___Restaurant_Opening_House.Components;
+using Flexybook___Restaurant_Opening_Hours.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
