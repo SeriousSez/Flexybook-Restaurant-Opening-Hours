@@ -60,6 +60,9 @@
         padding: 0.3em 0.5em;
         cursor: pointer;
         text-decoration: none;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     .contact-mail {
@@ -69,6 +72,9 @@
     .contact-email,
     .contact-tel {
         color: #666666;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     .icon {
