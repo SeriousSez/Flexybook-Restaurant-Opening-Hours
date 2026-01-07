@@ -14,32 +14,28 @@ namespace Flexybook.Infrastructure.Repositories
 
         public async Task<Restaurant?> Get(Guid id)
         {
-            var Restaurant = await _context.Restaurants.FirstOrDefaultAsync(r => r.Id == id);
-            return Restaurant;
+            return await _context.Restaurants.FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task<Restaurant?> GetFull(Guid id)
         {
-            var Restaurant = await _context.Restaurants
+            return await _context.Restaurants
                 .Include(r => r.Images)
                 .Include(r => r.OpeningHours)
                 .FirstOrDefaultAsync(r => r.Id == id);
-            return Restaurant;
         }
 
         public async Task<IEnumerable<Restaurant>> GetAll()
         {
-            var restraurants = await _context.Restaurants.ToListAsync();
-            return restraurants;
+            return await _context.Restaurants.ToListAsync();
         }
 
         public async Task<IEnumerable<Restaurant>> GetAllFull()
         {
-            var restraurants = await _context.Restaurants
+            return await _context.Restaurants
                 .Include(r => r.Images)
                 .Include(r => r.OpeningHours)
                 .ToListAsync();
-            return restraurants;
         }
     }
 }

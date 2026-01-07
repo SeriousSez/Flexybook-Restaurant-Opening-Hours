@@ -13,9 +13,9 @@ namespace Flexybook.Domain.Entities.Restaurant
             return new ImageResponse
             {
                 Id = this.Id,
+                Created = this.Created,
                 Url = this.Url,
                 RestaurantId = this.RestaurantId,
-                Restaurant = this.Restaurant.ToResponse()
             };
         }
     }

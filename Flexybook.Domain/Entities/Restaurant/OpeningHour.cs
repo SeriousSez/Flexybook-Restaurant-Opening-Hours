@@ -17,13 +17,13 @@ namespace Flexybook.Domain.Entities.Restaurant
             return new OpeningHourResponse
             {
                 Id = this.Id,
+                Created = this.Created,
                 Type = this.Type,
                 DayOfWeek = this.DayOfWeek,
                 OpenTime = this.OpenTime,
                 CloseTime = this.CloseTime,
                 IsClosed = this.IsClosed,
                 RestaurantId = this.RestaurantId,
-                Restaurant = this.Restaurant.ToResponse()
             };
         }
     }

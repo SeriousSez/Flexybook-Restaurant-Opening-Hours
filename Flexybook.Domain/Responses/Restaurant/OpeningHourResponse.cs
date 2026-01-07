@@ -8,6 +8,5 @@
         public TimeSpan CloseTime { get; set; }
         public bool IsClosed { get; set; }
         public Guid RestaurantId { get; set; }
-        public required RestaurantResponse Restaurant { get; set; }
     }
 }

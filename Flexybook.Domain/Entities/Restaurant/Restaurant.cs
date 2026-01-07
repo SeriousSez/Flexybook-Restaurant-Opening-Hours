@@ -17,6 +17,7 @@ namespace Flexybook.Domain.Entities.Restaurant
             return new RestaurantResponse
             {
                 Id = this.Id,
+                Created = this.Created,
                 Name = this.Name,
                 Address = this.Address,
                 City = this.City,
