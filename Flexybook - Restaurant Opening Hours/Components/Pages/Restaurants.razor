@@ -1,0 +1,38 @@
+@page "/restaurants"
+@using Flexybook.ApplicationService.Services
+@using Flexybook.Domain.Responses.Restaurant
+@inject IRestaurantService RestaurantService
+
+<h1>Restaurants</h1>
+
+@if (restaurants == null)
+{
+    <p>Loading...</p>
+}
+else if (!restaurants.Any())
+{
+    <p>No restaurants found.</p>
+}
+else
+{
+    <div class="restaurant-list">
+        @foreach (var restaurant in restaurants)
+        {
+            <div class="restaurant-card">
+                <h2>@restaurant.Name</h2>
+                <div>@restaurant.Address</div>
+                <div>@restaurant.Telephone</div>
+                <div>@restaurant.Email</div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private IEnumerable<RestaurantResponse>? restaurants;
+
+    protected override async Task OnInitializedAsync()
+    {
+        restaurants = await RestaurantService.GetAll();
+    }
+}

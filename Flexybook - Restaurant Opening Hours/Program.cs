@@ -1,7 +1,9 @@
 using Flexybook___Restaurant_Opening_Hours.Components;
 using Microsoft.EntityFrameworkCore;
-using Flexybook.Infrastructure;
 using Flexybook___Restaurant_Opening_Hours.Extensions;
+using Flexybook.ApplicationService.Extensions;
+using Flexybook.Infrastructure.Extensions;
+using Flexybook.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,11 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddDbContext<RestaurantContext>(options =>
     options.UseInMemoryDatabase("FlexybookDb"));
+
+// Register all infrastructure services via extension
+builder.Services.AddInfrastructureServices();
+// Register all application services via extension
+builder.Services.AddServices();
 
 var app = builder.Build();
 
