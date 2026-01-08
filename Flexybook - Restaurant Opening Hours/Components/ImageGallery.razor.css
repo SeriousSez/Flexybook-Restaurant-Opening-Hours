@@ -25,7 +25,7 @@
 
     .image:hover {
         transform: scale(1.03);
-        box-shadow: 0 4px 24px rgba(233, 74, 90, 0.13);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 }
 

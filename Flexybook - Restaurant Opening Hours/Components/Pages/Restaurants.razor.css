@@ -105,36 +105,109 @@
     }
 }
 
-.restaurant-card:hover,
-.restaurant-card.active {
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.13);
-    transform: translateY(-4px) scale(1.03);
-    border-color: #7cdb6b;
-    text-decoration: none !important;
-    color: #222 !important;
-}
+/* Mobile Styles */
+@media (max-width: 899px) {
+    h1 {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 2rem 0 2rem 0;
+        color: #222;
+        position: relative;
+    }
 
-.restaurant-card h2 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.4rem;
-    color: #222;
-}
+    h1::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #7cdb6b, #5ab848);
+        border-radius: 2px;
+    }
 
-.restaurant-card div {
-    color: #555;
-    font-size: 1rem;
-    margin-bottom: 0.2rem;
-}
-
-@media (max-width: 700px) {
     .restaurant-list {
+        display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
+        padding: 0 1rem;
+        margin: 1.5rem 0;
     }
 
     .restaurant-card {
-        max-width: 100%;
-        min-width: 0;
-        padding: 1rem;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+        text-decoration: none !important;
+        color: #222 !important;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .restaurant-card:active {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        transform: scale(0.98);
+        border-color: #7cdb6b;
+    }
+
+    .restaurant-image {
+        width: 100%;
+        height: 180px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .restaurant-content {
+        padding: 1.2rem 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .restaurant-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.7rem;
+    }
+
+    .restaurant-card h2 {
+        margin: 0;
+        font-size: 1.3rem;
+        color: #222;
+        font-weight: 600;
+    }
+
+    .status {
+        font-size: 0.9rem;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .status.open {
+        color: #7cdb6b;
+    }
+
+    .status.closed {
+        color: #e94a5a;
+    }
+
+    .restaurant-info {
+        font-size: 0.95rem;
+        color: #666;
+        margin-bottom: 0.35rem;
+    }
+
+    .restaurant-email {
+        color: #7cdb6b;
+        font-size: 0.9rem;
+        margin-top: 0.4rem;
     }
 }
