@@ -50,10 +50,10 @@
     cursor: pointer;
 }
 
-    .navbar-menu ::deep a:hover::after {
-        width: 100%;
-        background: #979797;
-    }
+.navbar-menu ::deep a:hover::after {
+    width: 100%;
+    background: #979797;
+}
 
 .navbar-menu ::deep a.active::after {
     width: 100%;
@@ -89,7 +89,7 @@
     transition: all 0.3s;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 899px) {
     .flexy-navbar {
         position: fixed;
         bottom: 0;

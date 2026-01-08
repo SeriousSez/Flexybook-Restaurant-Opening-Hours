@@ -79,7 +79,7 @@ td {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 899px) {
     .opening-hours-section {
         margin-top: 1.2em;
     }

@@ -43,7 +43,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 899px) {
     .contact-row {
         display: flex;
         gap: .5em;

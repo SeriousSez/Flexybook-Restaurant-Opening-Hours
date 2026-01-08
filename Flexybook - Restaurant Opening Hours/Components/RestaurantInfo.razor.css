@@ -177,7 +177,7 @@ body {
     padding: 1.5rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 899px) {
     .mobile-divider {
         display: block;
         height: 1px;
