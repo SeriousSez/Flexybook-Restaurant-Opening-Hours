@@ -35,7 +35,7 @@
     gap: 0.5rem;
 }
 
-.nav-link {
+.navbar-menu ::deep a {
     color: #fff !important;
     text-decoration: none;
     font-size: 1rem;
@@ -46,12 +46,12 @@
     background: transparent;
 }
 
-.nav-link:hover {
+.navbar-menu ::deep a:hover {
     background: rgba(255, 255, 255, 0.1);
     color: #fff !important;
 }
 
-.nav-link.active {
+.navbar-menu ::deep a.active {
     background: rgba(255, 255, 255, 0.15);
     color: #fff !important;
 }

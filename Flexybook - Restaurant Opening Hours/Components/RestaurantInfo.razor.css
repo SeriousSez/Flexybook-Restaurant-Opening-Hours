@@ -28,6 +28,7 @@ body {
     }
 
     .title-row {
+        margin: 1em 0;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -39,7 +40,7 @@ body {
         font-size: 2.2rem;
         font-weight: 700;
         color: #222;
-        margin-bottom: 0.2rem;
+        margin: 0;
     }
 
     .favourite-icon {
@@ -146,12 +147,10 @@ body {
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     padding: 1.5rem;
-    font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 @media (max-width: 768px) {
     h1 {
-        font-family: "Poppins", sans-serif;
         font-size: 30px;
         font-weight: 600;
     }
@@ -168,8 +167,7 @@ body {
     }
 
     .restaurant-card {
-        margin: 1rem auto;
-        font-family: 'Segoe UI', Arial, sans-serif;
+        margin: 0 1rem;
     }
 
     .header {
@@ -177,6 +175,7 @@ body {
     }
 
     .title-row {
+        margin: 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
