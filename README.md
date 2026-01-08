@@ -1,3 +1,34 @@
+## 📋 Assignment Overview & Feature Summary
+
+This project was developed as part of a .NET Developer job application assignment for FlexyBox ApS. The goal was to implement a Blazor application based on a provided Figma design ([Figma link](https://www.figma.com/design/BPYVMBj1ZgYK2U4gp218HU/Flexybook---DevTest?node-id=1-10282&t=Lod4mSn7BonpPL63-4)), without using component libraries or CSS frameworks, to demonstrate creativity and problem-solving in UI implementation.
+
+### Implemented Features (per requirements)
+
+- **Custom Blazor components**: All UI elements were built from scratch, matching the Figma design as closely as possible without component libraries or CSS frameworks.
+- **Restaurant listing and details**: Browse all restaurants, view details, contact info, and opening hours for multiple service types.
+- **Favorites system**: Mark/unmark restaurants as favorites, persisted per user.
+- **Responsive design**: Fully responsive layout for both desktop and mobile, closely following the Figma mobile and desktop views.
+- **Tab navigation**: Switch between different opening hour types (Restaurant, Takeaway, Buffet, Special Events) with swipeable tabs.
+- **Image gallery**: Horizontal scrollable image gallery with mouse wheel and touch support.
+- **Authentication**: Login/logout flow with seeded user, using ASP.NET Core Identity (no credentials required for demo login).
+- **Skeleton loaders**: Smooth loading states for data fetches, matching the Figma design.
+- **Error handling**: Custom 404 page for invalid routes.
+- **In-memory database**: Entity Framework Core with demo data seeding for rapid prototyping.
+- **Clean architecture**: Domain, Infrastructure, ApplicationService, and UI layers for maintainability and testability.
+
+### Enhancements Beyond Requirements
+
+- **Automated tests**: Added unit tests for helpers and services to ensure code quality and reliability.
+- **JWT authentication**: Implemented JWT token handling to demonstrate secure authentication patterns.
+- **Smart hour grouping**: Automatically groups days with identical opening hours for a cleaner UI.
+- **Custom authentication state provider**: Fine-tuned authentication state handling for better UX.
+- **Accessibility improvements**: Used semantic HTML and ARIA attributes where possible.
+- **Image compression**: Optimized images for faster loading.
+- **Comprehensive documentation**: Detailed README with setup instructions, time tracking, and architectural rationale.
+- **No external UI/CSS frameworks**: All styling and components are hand-crafted, as required.
+
+---
+
 > **Tip:** To view the mobile layout, open your browser's developer tools (usually F12 or right-click → Inspect), then toggle the device toolbar (often the phone/tablet icon) and select a mobile device.
 
 > **Note:** I attempted to implement a feature that would allow users to preview the mobile layout directly in the browser (e.g., via a toggle or button), but this is not reliably possible. Browsers do not allow you to programmatically change the viewport or user agent in a way that fully simulates a mobile device. The only accurate way to view the mobile layout is by using the device emulation tools built into browser developer tools.
@@ -17,6 +48,16 @@
     <tr>
       <td><img src="docs/screenshots/mobile-restaurants.png" alt="Mobile Restaurants" width="200" /></td>
       <td><img src="docs/screenshots/mobile-restaurant-details.png" alt="Mobile Restaurant Details" width="200" /></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <img src="docs/screenshots/restaurants-skeleton.gif" alt="Restaurants Skeleton Loader" width="400" />
+        <div style="font-size: 0.95rem; color: #555; margin-top: 0.3rem;">Skeleton loader for restaurant list page</div>
+      </td>
+      <td colspan="2">
+        <img src="docs/screenshots/restaurant-info-skeleton.gif" alt="Restaurant Info Skeleton Loader" width="400" />
+        <div style="font-size: 0.95rem; color: #555; margin-top: 0.3rem;">Skeleton loader for restaurant details page</div>
+      </td>
     </tr>
   </table>
 </div>
