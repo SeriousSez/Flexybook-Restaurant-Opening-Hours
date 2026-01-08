@@ -29,7 +29,7 @@ This project was developed as part of a .NET Developer job application assignmen
 
 ---
 
-> **Tip:** To view the mobile layout, open your browser's developer tools (usually F12 or right-click → Inspect), then toggle the device toolbar (often the phone/tablet icon) and select a mobile device.
+> **Tip:** To view the mobile layout, open your browser's developer tools (usually F12 or right-click → Inspect), then toggle the device toolbar (often the phone/tablet icon) and select a mobile device. For the most accurate mobile layout testing, set your browser's device toolbar to **448 × 998** (width × height) when emulating a mobile device. These dimensions are taken directly from the official Flexybox Figma design ([Figma link](https://www.figma.com/design/BPYVMBj1ZgYK2U4gp218HU/Flexybook---DevTest?node-id=1-10282&t=Lod4mSn7BonpPL63-4)).
 
 > **Note:** I attempted to implement a feature that would allow users to preview the mobile layout directly in the browser (e.g., via a toggle or button), but this is not reliably possible. Browsers do not allow you to programmatically change the viewport or user agent in a way that fully simulates a mobile device. The only accurate way to view the mobile layout is by using the device emulation tools built into browser developer tools.
 
