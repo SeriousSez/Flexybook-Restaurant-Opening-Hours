@@ -1,8 +1,4 @@
-// Enables horizontal scrolling with the mouse wheel for elements with the class 'image-gallery-inner'.
-window.enableGalleryDragScroll = function () {
-    window.enableHorizontalWheelScroll(document.querySelector('.image-gallery-inner'));
-};
-
+// Enables horizontal scrolling with the mouse wheel for any element passed to it.
 window.enableHorizontalWheelScroll = function (element) {
     if (!element) return;
     // Remove previous listeners if any

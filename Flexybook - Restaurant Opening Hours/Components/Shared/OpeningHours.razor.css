@@ -35,6 +35,11 @@ span, td {
         display: none;
     }
 
+    .tabs-inner {
+        display: flex;
+        gap: 0rem;
+    }
+
     .tab {
         font-weight: 500;
         border-radius: 20px;
@@ -107,6 +112,11 @@ span, td {
 
     .tabs-scroll::-webkit-scrollbar {
         display: none;
+    }
+
+    .tabs-inner {
+        display: flex;
+        gap: 0.5rem;
     }
 
     .tab {

@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Flexybook.Infrastructure.Repositories
 {
+    /// <summary>
+    /// Repository for managing restaurant data operations.
+    /// </summary>
     public class RestaurantRepository : IRestaurantRepository
     {
         private readonly RestaurantContext _context;
@@ -12,6 +15,11 @@ namespace Flexybook.Infrastructure.Repositories
             _context = context;
         }
 
+        /// <summary>
+        /// Retrieves a restaurant by ID without related data.
+        /// </summary>
+        /// <param name="id">The unique identifier of the restaurant.</param>
+        /// <returns>The restaurant entity if found; otherwise, null.</returns>
         public async Task<Restaurant?> GetAsync(Guid id)
         {
             return await _context.Restaurants
@@ -19,6 +27,11 @@ namespace Flexybook.Infrastructure.Repositories
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
 
+        /// <summary>
+        /// Retrieves a restaurant by ID including images and opening hours.
+        /// </summary>
+        /// <param name="id">The unique identifier of the restaurant.</param>
+        /// <returns>The restaurant entity with related data if found; otherwise, null.</returns>
         public async Task<Restaurant?> GetFullAsync(Guid id)
         {
             return await _context.Restaurants
@@ -28,11 +41,19 @@ namespace Flexybook.Infrastructure.Repositories
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
 
+        /// <summary>
+        /// Retrieves all restaurants without related data.
+        /// </summary>
+        /// <returns>A collection of all restaurants.</returns>
         public async Task<IEnumerable<Restaurant>> GetAllAsync()
         {
             return await _context.Restaurants.AsNoTracking().ToListAsync();
         }
 
+        /// <summary>
+        /// Retrieves all restaurants including images and opening hours.
+        /// </summary>
+        /// <returns>A collection of all restaurants with related data.</returns>
         public async Task<IEnumerable<Restaurant>> GetAllFullAsync()
         {
             return await _context.Restaurants
@@ -42,6 +63,11 @@ namespace Flexybook.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Updates a restaurant's information in the database.
+        /// </summary>
+        /// <param name="restaurant">The restaurant entity with updated information.</param>
+        /// <returns>True if the update was successful; otherwise, false.</returns>
         public async Task<bool> UpdateAsync(Restaurant restaurant)
         {
             var tracked = _context.ChangeTracker.Entries<Restaurant>()

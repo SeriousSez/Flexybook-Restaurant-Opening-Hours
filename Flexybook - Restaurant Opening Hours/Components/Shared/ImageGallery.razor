@@ -3,7 +3,7 @@
 
 @if (Images != null && Images.Any())
 {
-    <div class="image-gallery-inner">
+    <div class="image-gallery-inner" @ref="galleryRef">
         @foreach (var image in Images)
         {
             <img src="@image.Base64Data" alt="Restaurant image" class="image" />
@@ -12,18 +12,20 @@
 }
 else
 {
-    <div class="image-gallery-inner">
+    <div class="image-gallery-inner" @ref="galleryRef">
         <img src="/images/restaurant-interior.jpg" alt="Restaurant interior" class="image" />
         <img src="/images/lee-campbell.jpg" alt="Restaurant view" class="image" />
     </div>
 }
 
 @code {
+    private ElementReference galleryRef;
+
     [Parameter]
     public List<ImageResponse>? Images { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JS.InvokeVoidAsync("enableGalleryDragScroll");
+        await JS.InvokeVoidAsync("enableHorizontalWheelScroll", galleryRef);
     }
 }

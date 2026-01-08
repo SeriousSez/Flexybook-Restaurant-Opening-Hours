@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Flexybook.Infrastructure.Repositories
 {
+    /// <summary>
+    /// Repository for managing user data operations.
+    /// </summary>
     public class UserRepository : IUserRepository
     {
         protected internal readonly RestaurantContext _context;
@@ -14,6 +17,11 @@ namespace Flexybook.Infrastructure.Repositories
             _dbSet = _context.Set<UserEntity>();
         }
 
+        /// <summary>
+        /// Retrieves a user by ID including their favourite restaurants.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user.</param>
+        /// <returns>The user entity if found; otherwise, null.</returns>
         public virtual async Task<UserEntity?> GetAsync(Guid id)
         {
             return await _dbSet
@@ -22,6 +30,11 @@ namespace Flexybook.Infrastructure.Repositories
                 .SingleOrDefaultAsync(u => u.Id == id.ToString());
         }
 
+        /// <summary>
+        /// Updates a user's information in the database.
+        /// </summary>
+        /// <param name="user">The user entity with updated information.</param>
+        /// <returns>True if the update was successful; otherwise, false.</returns>
         public virtual async Task<bool> UpdateAsync(UserEntity user)
         {
             try

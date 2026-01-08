@@ -2,8 +2,19 @@ using Flexybook.Domain.Responses.Restaurant;
 
 namespace Flexybook___Restaurant_Opening_Hours.Helpers
 {
+    /// <summary>
+    /// Helper class for formatting and grouping opening hours for display.
+    /// </summary>
     public static class OpeningHoursDisplayHelper
     {
+        private const string HoursFormat = "hh\\:mm";
+        private const string ClosedLabel = "Closed";
+        private const string MondayThroughThursdayLabel = "Monday - Thursday";
+        private const string HolidaysLabel = "Holidays";
+
+        /// <summary>
+        /// Represents a single row of opening hours data for display.
+        /// </summary>
         public class DisplayRow
         {
             public string Label { get; set; } = "";
@@ -11,77 +22,97 @@ namespace Flexybook___Restaurant_Opening_Hours.Helpers
             public bool IsClosed { get; set; }
         }
 
+        /// <summary>
+        /// Converts a list of opening hours into display rows, grouping Monday-Thursday when they share the same hours.
+        /// </summary>
+        /// <param name="openingHours">The list of opening hours to format.</param>
+        /// <returns>A list of display rows ready for rendering.</returns>
         public static List<DisplayRow> GetDisplayRows(List<OpeningHourResponse> openingHours)
         {
             var rows = new List<DisplayRow>();
 
-            // Days of the week in order
-            var days = new[]
+            AddWeekdayRows(rows, openingHours);
+            AddWeekendRows(rows, openingHours);
+            AddHolidayRows(rows, openingHours);
+
+            return rows;
+        }
+
+        private static void AddWeekdayRows(List<DisplayRow> rows, List<OpeningHourResponse> openingHours)
+        {
+            var weekdays = new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday };
+            var weekdayHours = weekdays.Select(day => openingHours.FirstOrDefault(x => x.DayOfWeek == day)).ToList();
+
+            if (CanGroupWeekdays(weekdayHours))
             {
-                DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday,
-                DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday
-            };
-
-            // Group Monday-Thursday if all have the same hours and open/closed status
-            var mon = openingHours.FirstOrDefault(x => x.DayOfWeek == DayOfWeek.Monday);
-            var tue = openingHours.FirstOrDefault(x => x.DayOfWeek == DayOfWeek.Tuesday);
-            var wed = openingHours.FirstOrDefault(x => x.DayOfWeek == DayOfWeek.Wednesday);
-            var thu = openingHours.FirstOrDefault(x => x.DayOfWeek == DayOfWeek.Thursday);
-
-            bool groupMonThu =
-                mon != null && tue != null && wed != null && thu != null &&
-                mon.OpenTime == tue.OpenTime && mon.OpenTime == wed.OpenTime && mon.OpenTime == thu.OpenTime &&
-                mon.CloseTime == tue.CloseTime && mon.CloseTime == wed.CloseTime && mon.CloseTime == thu.CloseTime &&
-                mon.IsClosed == tue.IsClosed && mon.IsClosed == wed.IsClosed && mon.IsClosed == thu.IsClosed;
-
-            if (groupMonThu)
-            {
-                rows.Add(new DisplayRow
-                {
-                    Label = "Monday - Thursday",
-                    Hours = mon.IsClosed ? "Closed" : $"{mon.OpenTime:hh\\:mm} - {mon.CloseTime:hh\\:mm}",
-                    IsClosed = mon.IsClosed
-                });
+                rows.Add(CreateGroupedWeekdayRow(weekdayHours[0]!));
             }
             else
             {
-                foreach (var day in new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday })
-                {
-                    var entry = openingHours.FirstOrDefault(x => x.DayOfWeek == day);
-                    rows.Add(new DisplayRow
-                    {
-                        Label = day.ToString(),
-                        Hours = entry == null || entry.IsClosed ? "Closed" : $"{entry.OpenTime:hh\\:mm} - {entry.CloseTime:hh\\:mm}",
-                        IsClosed = entry == null || entry.IsClosed
-                    });
-                }
+                rows.AddRange(weekdays.Select(day => CreateDayRow(day.ToString(), openingHours.FirstOrDefault(x => x.DayOfWeek == day))));
             }
+        }
 
-            // Friday, Saturday, Sunday
-            foreach (var day in new[] { DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday })
+        private static void AddWeekendRows(List<DisplayRow> rows, List<OpeningHourResponse> openingHours)
+        {
+            var weekendDays = new[] { DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday };
+            
+            foreach (var day in weekendDays)
             {
                 var entry = openingHours.FirstOrDefault(x => x.DayOfWeek == day);
-                rows.Add(new DisplayRow
-                {
-                    Label = day.ToString(),
-                    Hours = entry == null || entry.IsClosed ? "Closed" : $"{entry.OpenTime:hh\\:mm} - {entry.CloseTime:hh\\:mm}",
-                    IsClosed = entry == null || entry.IsClosed
-                });
+                rows.Add(CreateDayRow(day.ToString(), entry));
             }
+        }
 
-            // Holidays: show all entries with DayOfWeek == null (or a special flag if you add one)
+        private static void AddHolidayRows(List<DisplayRow> rows, List<OpeningHourResponse> openingHours)
+        {
             var holidays = openingHours.Where(x => x.DayOfWeek is null).ToList();
+            
             foreach (var holiday in holidays)
             {
-                rows.Add(new DisplayRow
-                {
-                    Label = "Holidays",
-                    Hours = holiday.IsClosed ? "Closed" : $"{holiday.OpenTime:hh\\:mm} - {holiday.CloseTime:hh\\:mm}",
-                    IsClosed = holiday.IsClosed
-                });
+                rows.Add(CreateDayRow(HolidaysLabel, holiday));
             }
+        }
 
-            return rows;
+        private static bool CanGroupWeekdays(List<OpeningHourResponse?> weekdayHours)
+        {
+            if (weekdayHours.Any(h => h == null))
+                return false;
+
+            var first = weekdayHours[0]!;
+            
+            return weekdayHours.All(h => 
+                h!.OpenTime == first.OpenTime &&
+                h.CloseTime == first.CloseTime &&
+                h.IsClosed == first.IsClosed);
+        }
+
+        private static DisplayRow CreateGroupedWeekdayRow(OpeningHourResponse hours)
+        {
+            return new DisplayRow
+            {
+                Label = MondayThroughThursdayLabel,
+                Hours = FormatHours(hours),
+                IsClosed = hours.IsClosed
+            };
+        }
+
+        private static DisplayRow CreateDayRow(string dayLabel, OpeningHourResponse? hours)
+        {
+            return new DisplayRow
+            {
+                Label = dayLabel,
+                Hours = FormatHours(hours),
+                IsClosed = hours?.IsClosed ?? true
+            };
+        }
+
+        private static string FormatHours(OpeningHourResponse? hours)
+        {
+            if (hours == null || hours.IsClosed)
+                return ClosedLabel;
+
+            return $"{hours.OpenTime.ToString(HoursFormat)} - {hours.CloseTime.ToString(HoursFormat)}";
         }
     }
 }
